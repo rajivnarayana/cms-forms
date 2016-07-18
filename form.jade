@@ -1,0 +1,47 @@
+mixin form-text(field)
+    .form-group
+        label.control-label.col-sm-2(for="#{field.name}") #{field.label}
+        .col-sm-10
+            input.form-control(type="#{field.type}", name="#{field.name}" value='#{field.value?field.value:""}' id='#{field.id?field.id:""}')
+mixin form-markdown(field)
+    link(rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css")
+    script(src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js")
+    script.
+        $(document).ready(function() {
+            var textArea = $("textarea")[0];
+            var simplemde = new SimpleMDE({element : textArea, forceSync: true});
+            simplemde.value(textArea.getAttribute("value"));
+        })
+    .form-group
+        label.control-label.col-sm-2(for="#{field.name}") #{field.label}
+        .col-sm-10
+            textarea(type="text" name="#{field.name}" value="#{field.value}")
+mixin form-text-area(field)
+    .form-group
+        label.control-label.col-sm-2(for="#{field.name}") #{field.label}
+        .col-sm-10
+            textarea(type="text" name="#{field.name}") #{field.value}
+mixin form-check-box(field)
+    .form-group
+        .col-sm-10.col-sm-offset-2
+            .checkbox
+                label 
+                    input(type="checkbox" name="#{field.name}")
+                    | #{field.label}
+mixin form-submit(field)
+    .form-group
+        .col-sm-10.col-sm-offset-2
+            input.btn.btn-default(type="submit" name="#{field.name}" value="#{field.value}")
+
+form.form-horizontal(method="#{form.method}" action="#{form.action}")
+    each field in form.fields
+        if (field.type == 'CheckBox')
+            +form-check-box(field)
+        else if (field.type == 'TextArea')
+            +form-text-area(field)
+        else if (field.type == 'MDE')
+            +form-markdown(field)
+        else if (field.type == 'Submit')
+            +form-submit(field)
+        else
+            +form-text(field)
