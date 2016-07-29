@@ -63,8 +63,8 @@ mixin form-place-picker(field)
             })('#{field.id}')
         });
     .form-group
-        label.control-label.col-sm-2(for="#{field.name}") #{field.label}
-        .col-sm-10.col-sm-offset-2
+        label.control-label.col-sm-2(for="#{field.name}[place_name]") #{field.label}
+        .col-sm-10
             input.form-control(type="text", name="#{field.name}[place_name]" value='' id='#{field.id?field.id:""}_name')
             input.form-control(type="hidden", name="#{field.name}[place_id]" value='' id='#{field.id?field.id:""}_place_id')
             input.form-control(type="hidden", name="#{field.name}[url]" value='' id='#{field.id?field.id:""}_url')
