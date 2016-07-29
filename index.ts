@@ -8,11 +8,11 @@ export function render(req, res, next) {
     next();
 }
 
-Array.prototype.clone = function() { 
-    return this.map(item => Object.assign({}, item));
-}
-
 export class Form {
+
+    private _fields : any[];
+    public action: String;
+    public method: String;
     constructor() {
         this.action = '/';
         this.method = 'GET';
@@ -25,8 +25,8 @@ export class Form {
             }
         });
     }
-    set fields(v) {
-        this._fields = v.clone();
+    set fields(v : any) {
+        this._fields = v.map(item => Object.assign({}, item));
     }
     get fields() {
         return this._fields;

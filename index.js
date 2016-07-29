@@ -1,15 +1,14 @@
-import * as jade from "jade";
-import * as path from "path";
-export function render(req, res, next) {
+"use strict";
+const jade = require("jade");
+const path = require("path");
+function render(req, res, next) {
     if (res.form) {
         res.html = { content: jade.renderFile(path.join(__dirname, './form.jade'), { form: res.form }) };
     }
     next();
 }
-Array.prototype.clone = function () {
-    return this.map(item => Object.assign({}, item));
-};
-export class Form {
+exports.render = render;
+class Form {
     constructor() {
         this.action = '/';
         this.method = 'GET';
@@ -23,9 +22,11 @@ export class Form {
         });
     }
     set fields(v) {
-        this._fields = v.clone();
+        this._fields = v.map(item => Object.assign({}, item));
     }
     get fields() {
         return this._fields;
     }
 }
+exports.Form = Form;
+//# sourceMappingURL=index.js.map

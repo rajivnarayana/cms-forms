@@ -31,8 +31,45 @@ mixin form-check-box(field)
 mixin form-submit(field)
     .form-group
         .col-sm-10.col-sm-offset-2
-            input.btn.btn-default(type="submit" name="#{field.name}" value="#{field.value}")
-
+            input.btn.btn-primary(type="submit" name="#{field.name}" value="#{field.value}")
+mixin form-place-picker(field)
+    |  
+    script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHJUpkaPHEY5Fr6YVfbY_pa30NGV8WB30&libraries=places" async defer)
+    script.
+        $(document).ready(function() {
+            (function(fieldId) {
+                var input = document.getElementById(fieldId+'_name');
+                var autoCompleteBox = new google.maps.places.Autocomplete(input);
+                autoCompleteBox.setTypes([]);
+                autoCompleteBox.addListener('place_changed', function() {
+                    var place = autoCompleteBox.getPlace();
+                    var latitude = place.geometry.location.lat();
+                    var longitude = place.geometry.location.lng();  
+                    if (place == null) {
+                        return;
+                    }
+                    console.log(place);
+                    console.log(latitude);
+                    console.log(longitude);
+                    var placeIdInput = document.getElementById(fieldId+'_place_id');
+                    placeIdInput.value = place.place_id;
+                    var latIdInput = document.getElementById(fieldId+'_lat');
+                    latIdInput.value = latitude
+                    var lngIdInput = document.getElementById(fieldId+'_lng');
+                    lngIdInput.value = longitude
+                    var urlIdInput = document.getElementById(fieldId+'_url');
+                    urlIdInput.value = place.url;
+                });
+            })('#{field.id}')
+        });
+    .form-group
+        label.control-label.col-sm-2(for="#{field.name}") #{field.label}
+        .col-sm-10.col-sm-offset-2
+            input.form-control(type="text", name="#{field.name}[place_name]" value='' id='#{field.id?field.id:""}_name')
+            input.form-control(type="hidden", name="#{field.name}[place_id]" value='' id='#{field.id?field.id:""}_place_id')
+            input.form-control(type="hidden", name="#{field.name}[url]" value='' id='#{field.id?field.id:""}_url')
+            input.form-control(type="hidden", name="#{field.name}[lat]" value='' id='#{field.id?field.id:""}_lat')
+            input.form-control(type="hidden", name="#{field.name}[lng]" value='' id='#{field.id?field.id:""}_lng')
 form.form-horizontal(method="#{form.method}" action="#{form.action}")
     each field in form.fields
         if (field.type == 'CheckBox')
@@ -43,5 +80,7 @@ form.form-horizontal(method="#{form.method}" action="#{form.action}")
             +form-markdown(field)
         else if (field.type == 'Submit')
             +form-submit(field)
+        else if (field.type == 'PlacePicker')
+            +form-place-picker(field)
         else
             +form-text(field)
