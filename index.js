@@ -8,6 +8,14 @@ function render(req, res, next) {
     next();
 }
 exports.render = render;
+exports.WidgetTypes = {
+    TextField: 'text',
+    Password: 'password',
+    Select: 'select',
+    CheckBox: 'checkbox',
+    Radio: 'radio',
+    Submit: 'submit'
+};
 class Form {
     constructor() {
         this.action = '/';
@@ -17,6 +25,9 @@ class Form {
         Object.keys(values).forEach((key) => {
             let field = this.fields.find((field) => { return field.name == key; });
             if (field) {
+                if (field.type == exports.WidgetTypes.CheckBox && field.value) {
+                    field.checked = true;
+                }
                 field.value = values[key];
             }
         });

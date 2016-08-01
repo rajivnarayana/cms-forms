@@ -1,8 +1,8 @@
 mixin form-text(field)
     .form-group
-        label.control-label.col-sm-2(for="#{field.name}") #{field.label}
-        .col-sm-10
-            input.form-control(type="#{field.type}", name="#{field.name}" value='#{field.value?field.value:""}' id='#{field.id?field.id:""}')
+        label.control-label(for="#{field.name}" class=field.labelClass || "col-sm-4") #{field.label}
+        div(class=field.class || "col-sm-8") 
+            input.form-control(type="#{field.type || 'text'}", name="#{field.name}" value='#{field.value || ""}' id='#{field.id || ""}')&attributes(field.attributes || {})
 mixin form-markdown(field)
     link(rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css")
     script(src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js")
@@ -13,25 +13,25 @@ mixin form-markdown(field)
             simplemde.value(textArea.getAttribute("value"));
         })
     .form-group
-        label.control-label.col-sm-2(for="#{field.name}") #{field.label}
-        .col-sm-10
-            textarea(type="text" name="#{field.name}" value="#{field.value}")
+        label.control-label.col-sm-4(for="#{field.name}") #{field.label}
+        .col-sm-8
+            textarea(type="text" name="#{field.name}" value="#{field.value || ''}")
 mixin form-text-area(field)
     .form-group
-        label.control-label.col-sm-2(for="#{field.name}") #{field.label}
-        .col-sm-10
-            textarea(type="text" name="#{field.name}") #{field.value}
+        label.control-label.col-sm-4(for="#{field.name}") #{field.label}
+        .col-sm-8
+            textarea(type="text" name="#{field.name}") #{field.value || ""}
 mixin form-check-box(field)
     .form-group
-        .col-sm-10.col-sm-offset-2
+        div(class=field.class || ["col-sm-8", "col-sm-offset-4"])
             .checkbox
                 label 
-                    input(type="checkbox" name="#{field.name}")
+                    input(type="checkbox" name="#{field.name}" value=field.value || "on" checked=field.checked || false)
                     | #{field.label}
 mixin form-submit(field)
     .form-group
-        .col-sm-10.col-sm-offset-2
-            input.btn.btn-primary(type="submit" name="#{field.name}" value="#{field.value}")
+        div(class =field.class || ["col-sm-8", "col-sm-offset-4"])
+            input.btn.btn-primary.col-xs-12(type="submit" name="#{field.name || ''}" value="#{field.value}")
 mixin form-place-picker(field)
     |  
     script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHJUpkaPHEY5Fr6YVfbY_pa30NGV8WB30&libraries=places" async defer)
@@ -63,8 +63,8 @@ mixin form-place-picker(field)
             })('#{field.id}')
         });
     .form-group
-        label.control-label.col-sm-2(for="#{field.name}[place_name]") #{field.label}
-        .col-sm-10
+        label.control-label.col-sm-4(for="#{field.name}[place_name]") #{field.label}
+        .col-sm-8
             input.form-control(type="text", name="#{field.name}[place_name]" value='' id='#{field.id?field.id:""}_name')
             input.form-control(type="hidden", name="#{field.name}[place_id]" value='' id='#{field.id?field.id:""}_place_id')
             input.form-control(type="hidden", name="#{field.name}[url]" value='' id='#{field.id?field.id:""}_url')
@@ -73,13 +73,13 @@ mixin form-place-picker(field)
 form.form-horizontal(method="#{form.method}" action="#{form.action}")
     != form.header
     each field in form.fields
-        if (field.type == 'CheckBox')
+        if (field.type == 'checkbox')
             +form-check-box(field)
-        else if (field.type == 'TextArea')
+        else if (field.type == 'textarea')
             +form-text-area(field)
         else if (field.type == 'MDE')
             +form-markdown(field)
-        else if (field.type == 'Submit')
+        else if (field.type == 'submit')
             +form-submit(field)
         else if (field.type == 'PlacePicker')
             +form-place-picker(field)

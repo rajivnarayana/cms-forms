@@ -8,6 +8,15 @@ export function render(req, res, next) {
     next();
 }
 
+export var WidgetTypes = {
+    TextField : 'text',
+    Password : 'password',
+    Select : 'select',
+    CheckBox : 'checkbox',
+    Radio : 'radio',
+    Submit : 'submit'
+}
+
 export class Form {
 
     private _fields : any[];
@@ -21,6 +30,9 @@ export class Form {
         Object.keys(values).forEach((key) => {
             let field = this.fields.find((field) => { return field.name == key; });
             if (field) {
+                if (field.type == WidgetTypes.CheckBox && field.value) {
+                    field.checked = true;
+                }
                 field.value = values[key];
             }
         });
