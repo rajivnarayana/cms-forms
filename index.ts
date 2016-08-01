@@ -3,7 +3,8 @@ import * as path from "path";
 
 export function render(req, res, next) {
     if (res.form) {
-        res.html = {content : jade.renderFile(path.join(__dirname, './form.jade'), { form: res.form })};
+        res.html = Object.assign({content : jade.renderFile(path.join(__dirname, './form.jade'), { form: res.form })}, res.html);
+        delete res.form;
     }
     next();
 }
