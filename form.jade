@@ -28,6 +28,13 @@ mixin form-check-box(field)
                 label 
                     input(type="checkbox" name="#{field.name}" value=field.value || "on" checked=field.checked || false)
                     | #{field.label}
+mixin form-select(field)
+    .form-group
+        label.control-label(for="#{field.name}" class=field.labelClass || "col-sm-4") #{field.label}
+        div(class=field.class || "col-sm-8") 
+            select.form-control(type="select", name="#{field.name}" id='#{field.id || ""}')&attributes(field.attributes || {})
+                each key, val in field.options||{}
+                    option(selected=val == field.value value=val) #{key}
 mixin form-submit(field)
     .form-group
         div(class =field.class || ["col-sm-8", "col-sm-offset-4"])
@@ -81,6 +88,8 @@ form.form-horizontal(method="#{form.method}" action="#{form.action}")
             +form-markdown(field)
         else if (field.type == 'submit')
             +form-submit(field)
+        else if (field.type == 'select')
+            +form-select(field)
         else if (field.type == 'PlacePicker')
             +form-place-picker(field)
         else

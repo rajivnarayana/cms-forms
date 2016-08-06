@@ -1,6 +1,8 @@
 import * as jade from "jade";
 import * as path from "path";
 
+declare var __dirname;
+
 export function render(req, res, next) {
     if (res.form) {
         res.html = Object.assign({content : jade.renderFile(path.join(__dirname, './form.jade'), { form: res.form })}, res.html);
