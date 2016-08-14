@@ -13,8 +13,8 @@ mixin form-markdown(field)
             simplemde.value(textArea.getAttribute("value"));
         })
     .form-group
-        label.control-label.col-sm-4(for="#{field.name}") #{field.label}
-        .col-sm-8
+        label.control-label(for="#{field.name}" class=field.labelClass || "col-sm-4") #{field.label}
+        div(class=field.class || "col-sm-8") 
             textarea(type="text" name="#{field.name}" value="#{field.value || ''}")
 mixin form-text-area(field)
     .form-group

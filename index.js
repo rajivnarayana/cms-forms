@@ -15,6 +15,7 @@ exports.WidgetTypes = {
     Select: 'select',
     CheckBox: 'checkbox',
     Radio: 'radio',
+    MarkDownEditor: 'MDE',
     Submit: 'submit'
 };
 class Form {
@@ -26,7 +27,7 @@ class Form {
         Object.keys(values).forEach((key) => {
             let field = this.fields.find((field) => { return field.name == key; });
             if (field) {
-                if (field.type == exports.WidgetTypes.CheckBox && field.value) {
+                if (field.type == exports.WidgetTypes.CheckBox && values[key]) {
                     field.checked = true;
                 }
                 field.value = values[key];
