@@ -41,7 +41,7 @@ mixin form-submit(field)
             input.btn.btn-primary.col-xs-12(type="submit" name="#{field.name || ''}" value="#{field.value}")
 mixin form-place-picker(field)
     |  
-    script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHJUpkaPHEY5Fr6YVfbY_pa30NGV8WB30&libraries=places" async defer)
+    script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHJUpkaPHEY5Fr6YVfbY_pa30NGV8WB30&libraries=places" defer)
     script.
         $(document).ready(function() {
             (function(fieldId) {
@@ -94,3 +94,5 @@ form.form-horizontal(method="#{form.method}" action="#{form.action}")
             +form-place-picker(field)
         else
             +form-text(field)
+.form-footer
+    != form.footer
