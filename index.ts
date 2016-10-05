@@ -13,6 +13,7 @@ export function render(req, res, next) {
 
 export var WidgetTypes = {
     TextField : 'text',
+    TextArea : 'textarea',
     Password : 'password',
     Select : 'select',
     CheckBox : 'checkbox',

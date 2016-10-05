@@ -11,6 +11,7 @@ function render(req, res, next) {
 exports.render = render;
 exports.WidgetTypes = {
     TextField: 'text',
+    TextArea: 'textarea',
     Password: 'password',
     Select: 'select',
     CheckBox: 'checkbox',
