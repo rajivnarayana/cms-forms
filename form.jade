@@ -1,6 +1,10 @@
 mixin form-text(field)
     .form-group
-        label.control-label(for="#{field.name}" class=field.labelClass || "col-sm-4") #{field.label}
+        if (field.labelHTML)
+            :verbatim
+                !{field.labelHTML}
+        else
+            label.control-label(for="#{field.name}" class=field.labelClass || "col-sm-4") #{field.label}
         div(class=field.class || "col-sm-8") 
             input.form-control(type="#{field.type || 'text'}", name="#{field.name}" value='#{field.value || ""}' id='#{field.id || ""}')&attributes(field.attributes || {})
 mixin form-markdown(field)
@@ -27,7 +31,11 @@ mixin form-check-box(field)
             .checkbox
                 label 
                     input(type="checkbox" name="#{field.name}" value=field.value || "on" checked=field.checked || false)
-                    | #{field.label}
+                    if (field.labelHTML)
+                        :verbatim
+                            !{field.labelHTML}
+                    else
+                        | #{field.label}
 mixin form-select(field)
     .form-group
         label.control-label(for="#{field.name}" class=field.labelClass || "col-sm-4") #{field.label}
