@@ -45,8 +45,8 @@ mixin form-select(field)
                     option(selected=val == field.value value=val) #{key}
 mixin form-submit(field)
     .form-group
-        div(class =field.labelClass || ["col-sm-8", "col-sm-offset-4"])
-            input(type="submit" name="#{field.name || ''}" value="#{field.value}" class=field.class || ["btn" "btn-primary" "col-xs-12"])
+        div(class=field.labelClass || ["col-sm-8", "col-sm-offset-4"])
+            input(type="submit" name="#{field.name || ''}" value="#{field.value}" class=field.class || "btn btn-primary col-xs-12")
 mixin form-place-picker(field)
     |  
     script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHJUpkaPHEY5Fr6YVfbY_pa30NGV8WB30&libraries=places" defer)
