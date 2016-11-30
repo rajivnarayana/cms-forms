@@ -19,7 +19,8 @@ export var WidgetTypes = {
     CheckBox : 'checkbox',
     Radio : 'radio',
     MarkDownEditor : 'MDE',
-    Submit : 'submit'
+    Submit : 'submit',
+    Hidden : 'hidden'
 }
 
 export class Form {
