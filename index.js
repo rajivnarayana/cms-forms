@@ -15,9 +15,11 @@ exports.WidgetTypes = {
     Password: 'password',
     Select: 'select',
     CheckBox: 'checkbox',
+    FancyCheckBox: 'fancy-checkbox',
     Radio: 'radio',
     MarkDownEditor: 'MDE',
-    Submit: 'submit'
+    Submit: 'submit',
+    Hidden: 'hidden'
 };
 class Form {
     constructor() {

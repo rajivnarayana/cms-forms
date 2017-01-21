@@ -38,6 +38,17 @@ mixin form-check-box(field)
                             !{field.labelHTML}
                     else
                         | #{field.label}
+mixin form-fancy-check-box(field)
+    .form-group
+        div(class=field.class || ["col-sm-8", "col-sm-offset-4"])
+            .custom-checkbox
+                input(type="checkbox" id=field.name name="#{field.name}" value=field.value || "on" checked=field.checked || false)
+                label(for=field.name)
+                    if (field.labelHTML)
+                        :verbatim
+                            !{field.labelHTML}
+                    else
+                        | #{field.label}
 mixin form-select(field)
     .form-group
         label.control-label(for="#{field.name}" class=field.labelClass || "col-sm-4") #{field.label}
@@ -92,6 +103,8 @@ form.form-horizontal(method="#{form.method}" action="#{form.action}")
     each field in form.fields
         if (field.type == 'checkbox')
             +form-check-box(field)
+        else if (field.type == 'fancy-checkbox')
+            +form-fancy-check-box(field)
         else if (field.type == 'textarea')
             +form-text-area(field)
         else if (field.type == 'MDE')

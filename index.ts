@@ -17,6 +17,7 @@ export var WidgetTypes = {
     Password : 'password',
     Select : 'select',
     CheckBox : 'checkbox',
+    FancyCheckBox : 'fancy-checkbox',
     Radio : 'radio',
     MarkDownEditor : 'MDE',
     Submit : 'submit',
