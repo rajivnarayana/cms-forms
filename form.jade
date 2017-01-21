@@ -31,7 +31,7 @@ mixin form-check-box(field)
     .form-group
         div(class=field.class || ["col-sm-8", "col-sm-offset-4"])
             .checkbox
-                label 
+                label(class=field.labelClass || '')
                     input(type="checkbox" name="#{field.name}" value=field.value || "on" checked=field.checked || false)
                     if (field.labelHTML)
                         :verbatim
@@ -43,7 +43,7 @@ mixin form-fancy-check-box(field)
         div(class=field.class || ["col-sm-8", "col-sm-offset-4"])
             .custom-checkbox
                 input(type="checkbox" id=field.name name="#{field.name}" value=field.value || "on" checked=field.checked || false)
-                label(for=field.name)
+                label(for=field.name class=field.labelClass || '')
                     if (field.labelHTML)
                         :verbatim
                             !{field.labelHTML}
