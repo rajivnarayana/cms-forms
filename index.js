@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const jade = require("jade");
 const path = require("path");
 function render(req, res, next) {
@@ -19,6 +20,7 @@ exports.WidgetTypes = {
     Radio: 'radio',
     MarkDownEditor: 'MDE',
     Submit: 'submit',
+    HTMLEditor: 'HTML',
     Hidden: 'hidden'
 };
 class Form {

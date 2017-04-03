@@ -21,6 +21,7 @@ export var WidgetTypes = {
     Radio : 'radio',
     MarkDownEditor : 'MDE',
     Submit : 'submit',
+    HTMLEditor : 'HTML',
     Hidden : 'hidden'
 }
 

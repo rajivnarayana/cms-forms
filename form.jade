@@ -9,18 +9,35 @@ mixin form-text(field)
             input.form-control(type="#{field.type || 'text'}", name="#{field.name}" value='#{field.value || ""}' id='#{field.id || ""}')&attributes(field.attributes || {})
 mixin form-input-hidden(field)
     input.form-control(type="hidden", name="#{field.name}" value='#{field.value || ""}' id='#{field.id || ""}')&attributes(field.attributes || {})
+mixin form-html-editor(field)
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js")
+    script.
+        $(document).ready(function() {
+            var editor = ace.edit("editor");
+            editor.setTheme("ace/theme/monokai");
+            editor.setShowPrintMargin(false);
+            editor.getSession().setMode("ace/mode/html");
+            editor.getSession().on('change', function(e) {
+                document.getElementById("editor-companion").value = editor.getValue();
+            });
+        })
+    .form-group
+        label.control-label(for=field.name class=field.labelClass || "col-sm-4") #{field.label}
+        div(class=field.class || "col-sm-8") 
+            #editor(type="text" style="height:500px" )= field.value || ''
+            input#editor-companion(type="hidden" name=field.name value=field.value)
 mixin form-markdown(field)
     link(rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css")
     script(src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js")
     script.
         $(document).ready(function() {
-            var textArea = $("textarea")[0];
+            var textArea = $(".mde-editor textarea")[0];
             var simplemde = new SimpleMDE({element : textArea, forceSync: true});
             simplemde.value(textArea.getAttribute("value"));
         })
     .form-group
         label.control-label(for="#{field.name}" class=field.labelClass || "col-sm-4") #{field.label}
-        div(class=field.class || "col-sm-8") 
+        div.mde-editor(class=field.class || "col-sm-8") 
             textarea(type="text" name="#{field.name}" value="#{field.value || ''}")
 mixin form-text-area(field)
     .form-group
@@ -109,6 +126,8 @@ form.form-horizontal(method="#{form.method}" action="#{form.action}")
             +form-text-area(field)
         else if (field.type == 'MDE')
             +form-markdown(field)
+        else if (field.type == 'HTML')
+            +form-html-editor(field)
         else if (field.type == 'submit')
             +form-submit(field)
         else if (field.type == 'select')
