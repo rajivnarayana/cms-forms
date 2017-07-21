@@ -43,7 +43,7 @@ mixin form-text-area(field)
     .form-group
         label.control-label(for="#{field.name}" class=field.labelClass || "col-sm-4") #{field.label}
         div(class=field.class || "col-sm-8")
-            textarea.form-control(type="text" name="#{field.name}") #{field.value || ""}
+            textarea.form-control(type="text" name="#{field.name}")&attributes(field.attributes || {})= field.value||''
 mixin form-check-box(field)
     .form-group
         div(class=field.class || ["col-sm-8", "col-sm-offset-4"])
