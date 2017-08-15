@@ -5,7 +5,7 @@ declare var __dirname;
 
 export function render(req, res, next) {
     if (res.form) {
-        res.html = Object.assign( res.html, {content : jade.renderFile(path.join(__dirname, './form.jade'), { form: res.form })});
+        res.html = Object.assign( res.html|| {}, {content : jade.renderFile(path.join(__dirname, './form.jade'), { form: res.form })});
         delete res.form;
     }
     next();
