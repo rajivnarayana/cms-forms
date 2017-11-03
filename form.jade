@@ -115,7 +115,7 @@ mixin form-place-picker(field)
             input.form-control(type="hidden", name="#{field.name}[url]" value='' id='#{field.id?field.id:""}_url')
             input.form-control(type="hidden", name="#{field.name}[lat]" value='' id='#{field.id?field.id:""}_lat')
             input.form-control(type="hidden", name="#{field.name}[lng]" value='' id='#{field.id?field.id:""}_lng')
-form.form-horizontal(method="#{form.method}" action="#{form.action}")
+form.form-horizontal(method=form.method action=form.action enctype=form.encoding || false)
     != form.header
     each field in form.fields
         if (field.type == 'checkbox')

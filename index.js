@@ -23,8 +23,16 @@ exports.WidgetTypes = {
     HTMLEditor: 'HTML',
     Hidden: 'hidden'
 };
+var FormEncoding;
+(function (FormEncoding) {
+    FormEncoding[FormEncoding["text"] = 0] = "text";
+    FormEncoding[FormEncoding["urlEncoded"] = 1] = "urlEncoded";
+    FormEncoding[FormEncoding["multiPartFormData"] = 2] = "multiPartFormData";
+    FormEncoding[FormEncoding["default"] = 3] = "default";
+})(FormEncoding = exports.FormEncoding || (exports.FormEncoding = {}));
 class Form {
     constructor() {
+        this.encType = FormEncoding.default;
         this.action = '/';
         this.method = 'GET';
     }
@@ -44,6 +52,18 @@ class Form {
     }
     get fields() {
         return this._fields;
+    }
+    get encoding() {
+        switch (this.encType) {
+            case FormEncoding.text:
+                return "text/plain";
+            case FormEncoding.multiPartFormData:
+                return "multipart/form-data";
+            case FormEncoding.urlEncoded:
+                return "application/x-www-form-urlencoded";
+            default:
+                return null;
+        }
     }
 }
 exports.Form = Form;

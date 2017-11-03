@@ -25,11 +25,20 @@ export var WidgetTypes = {
     Hidden : 'hidden'
 }
 
+export enum FormEncoding {
+    text,
+    urlEncoded,
+    multiPartFormData,
+    default
+}
+
 export class Form {
 
     private _fields : any[];
     public action: String;
     public method: String;
+    public encType : FormEncoding = FormEncoding.default;
+
     constructor() {
         this.action = '/';
         this.method = 'GET';
@@ -50,5 +59,18 @@ export class Form {
     }
     get fields() {
         return this._fields;
+    }
+
+    get encoding() : String {
+        switch(this.encType) {
+            case FormEncoding.text:
+                return "text/plain";
+            case FormEncoding.multiPartFormData:
+                return "multipart/form-data";
+            case FormEncoding.urlEncoded: 
+                return "application/x-www-form-urlencoded";
+            default :
+                return null;
+        }
     }
 }
