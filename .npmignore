@@ -2,4 +2,6 @@
 tsconfig.json
 *.ts
 *.js.map
+sample
 node_modules
+README.MD
